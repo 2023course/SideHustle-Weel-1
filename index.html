@@ -6,18 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/style.css">
-    <title>SideHustle Week 2</title>
+    <title>SideHustle Week 1</title>
   </head>
-
 
   <body>
     <main>
 
       <h2>Fill in Your BioData</h2>
 
-      <div class="successful ">Form Submitted Succefully</div>
-
-      <form action="#" >
+      <form action="#">
 
         <fieldset>
 
@@ -32,14 +29,16 @@
 
             <!--------------------------------- email ------------------------------>
             <label for="email">Email:</label>
-            <input type="email" name="email" id="email" required placeholder="Enter your email....." class="email">
+            <input type="email" name="email" id="email" spellcheck="false" required placeholder="Enter your email....." class="email" onclick="validation()">
+
+            <span id="emailError" style="color:red"></span>
 
             <br>
             <br>
 
             <!-------------------------------- Tel no ----------------------------->
             <label for="tel1">Phone Number:</label>
-            <input type="tel" name="tel1" id="tel1" placeholder="+234-00-0000-0000" class="tel1">
+            <input type="tel" name="tel1" id="tel1" required placeholder="+234-00-0000-0000" class="tel1">
 
             <br>
             <br>
@@ -64,7 +63,7 @@
             <br>
             <br>
 
-            <input type="submit" value="Submit" class="btn">
+            <input type="submit" value="Submit" class="btn" onclick="response()">
 
         </fieldset>
       </form>
@@ -72,6 +71,7 @@
   </body>
 
   <!----------------------------------------- Javascript --------------------------------------------->
+
   <script type="text/javascript">
 
     const text = document.getElementsByClassName('name1')[0];
@@ -80,58 +80,47 @@
 
     const tel = document.getElementsByClassName('tel1')[0];
     
-    const hide = document.getElementsByClassName('successful')[0];
+    const hide = document.getElementsByClassName('successful_show')[0];
 
     const male = document.getElementsByClassName('male')[0];
 
     const female = document.getElementsByClassName('female')[0];
 
     const password = document.getElementsByClassName('password')[0];
-   
+
+    const emailInput = document.getElementById('email');
+
+    const emailError = document.getElementById('emailError');
+
+    const format = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      
     const btn = document.getElementsByClassName('btn')[0];
-      
-    btn.addEventListener('click', function(event)
+   
+    function response()
     {
-       event.preventDefault()
 
-       if (name1.value.length == 0)
-        { 
-            alert("name field can't be empty");  	
-        } 
-
-
-        else if (email.value.length == 0)
-        { 
-            alert("email field can't be empty");  	
-        }
-
-        else if (tel1.value.length == 0)
-        { 
-          alert("Tel field can't be empty");  	
-        }
-
-        else if (password.value.length == 0)
-        { 
-          alert("password field can't be empty");  	
-        }
-
-        if(text.value != '' && email.value != '' && tel1.value != '' && password.value != '')
+      if(text.value != '' && email.value != '' && tel1.value != '' && password.value != '')
         {
-          hide.classList.add('show')
+          alert("Form Submitted Successfully");
         }
+    }
+
+
+    function validation()  
+    {  
+      emailInput.addEventListener('input', () => {
+        if (!format.test(emailInput.value)) 
+        {
+          emailError.textContent = 'Please enter a valid email address';
+        } else 
+        {
+          emailError.textContent = '';
+        }
+      });
         
-        setTimeout(()=>
-        {
-          hide.classList.remove('show')
-          text.value = ''
-          email.value = ''
-          male.value = ''
-          female.value = ''
-          tel1.value = ''
-          password.value = '' 
-       }, 2000)
-    })
-      
+    }  
+       
   </script>
 
 </html>
